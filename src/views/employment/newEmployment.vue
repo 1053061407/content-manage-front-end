@@ -23,6 +23,9 @@
         <el-form-item label="教育经历" prop="subtitle">
           <el-input v-model="position.education"></el-input>
         </el-form-item>
+        <el-form-item label="招聘人数" prop="subtitle">
+          <el-input v-model="position.numbers"></el-input>
+        </el-form-item>
         <el-form-item label="职位描述" prop="subtitle">
           <el-input v-model="position.detail"></el-input>
         </el-form-item>
@@ -59,25 +62,28 @@
   import { mapGetters } from 'vuex'
   export default {
     components: { Tinymce, Upload },
+    destroyed() {
+      this.$store.commit('setPosition', {})
+    },
     data() {
       return {
         content: '',
         rules: {
-          title: [
-            { required: true, message: '请输入标题', trigger: 'blur' }
-          ],
+//          title: [
+//            { required: true, message: '请输入标题', trigger: 'blur' }
+//          ],
 //          time: [
 //            { required: true, message: '请选择时间', trigger: 'blur' }
 //          ],
-          subtitle: [
-            { required: true, message: '请输入内容', trigger: 'blur' }
-          ],
-          content: [
-            { required: true, message: '请输入内容', trigger: 'blur' }
-          ],
-          category: [
-            { required: true, message: '请选择文章分类', trigger: 'blur' }
-          ]
+//          subtitle: [
+//            { required: true, message: '请输入内容', trigger: 'blur' }
+//          ],
+//          content: [
+//            { required: true, message: '请输入内容', trigger: 'blur' }
+//          ],
+//          category: [
+//            { required: true, message: '请选择文章分类', trigger: 'blur' }
+//          ]
         }
       }
     },
@@ -99,7 +105,8 @@
           'detail': this.position.detail,
           'requirement': this.position.requirement,
           'welfare': this.position.welfare,
-          'location': this.position.location
+          'location': this.position.location,
+          'status': this.position.status
         }
         createEmployment(tmp).then(response => {
           console.log(response)
@@ -108,9 +115,7 @@
             message: '创建成功',
             type: 'success'
           })
-          if (this.ruleForm.category === 'company') {
-            this.$router.push('/article/companyInfo')
-          } else this.$router.push('/article/hotSpot')
+          this.$router.push('/employment/newEmployment')
         })
           .catch(function(error) {
             console.log(error)

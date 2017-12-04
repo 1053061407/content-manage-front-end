@@ -4,11 +4,6 @@
       <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="标题" v-model="listQuery.title">
       </el-input>
 
-      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.type" placeholder="类型">
-        <el-option v-for="item in  calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key">
-        </el-option>
-      </el-select>
-
       <el-select @change='handleFilter' style="width: 120px" class="filter-item" v-model="listQuery.sort" placeholder="排序">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key">
         </el-option>
@@ -93,7 +88,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="update">确 定</el-button>
-        <router-link to="/article/newArticle">
+        <router-link to="/employment/newEmployment">
           <el-button @click="edit">编辑</el-button>
         </router-link>
       </div>
@@ -113,23 +108,10 @@
 </template>
 
 <script>
-  import { fetchAllEmployment, fetchContent, setDelete, setDraft, setPublish } from '@/api/employment'
+  import { fetchAllEmployment, fetchContent, setDeleteEmploy, setDraftEmploy, setPublishEmploy } from '@/api/employment'
   import waves from '@/directive/waves/index.js' // 水波纹指令
   import { parseTime } from '@/utils'
   import { Notification } from 'element-ui'
-
-  const calendarTypeOptions = [
-    { key: 'CN', display_name: '中国' },
-    { key: 'US', display_name: '美国' },
-    { key: 'JP', display_name: '日本' },
-    { key: 'EU', display_name: '欧元区' }
-  ]
-
-  // arr to obj
-  const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-    acc[cur.key] = cur.display_name
-    return acc
-  }, {})
 
   export default {
     name: 'table_demo',
@@ -158,7 +140,6 @@
           position: ''
         },
         importanceOptions: [1, 2, 3],
-        calendarTypeOptions,
         sortOptions: [{ label: '按ID升序列', key: '+id' }, { label: '按ID降序', key: '-id' }],
         statusOptions: ['published', 'draft', 'deleted'],
         dialogFormVisible: false,
@@ -181,9 +162,6 @@
           deleted: 'danger'
         }
         return statusMap[status]
-      },
-      typeFilter(type) {
-        return calendarTypeKeyValue[type]
       }
     },
     mounted() {
@@ -192,8 +170,9 @@
     methods: {
       getList() {
         this.listLoading = true
-        // 用来取每一页的所有行业热点
+        // 用来取每一页的所有招聘信息
         fetchAllEmployment(this.listQuery).then(response => {
+          console.log(response)
           console.log(response.data.data)
           this.list = response.data.data
 //          this.total = response.data.total
@@ -212,7 +191,7 @@
           response.data.id = this.temp.id
           response.data.time = response.data.time * 1000
           response.data.article_status = 'edit'
-          this.$store.commit('setConditions', response.data)
+          this.$store.commit('setPosition', response.data)
         })
           .catch(function(error) {
             console.log(error)
@@ -239,7 +218,7 @@
         this.listQuery.end = parseInt((+time[1] + 3600 * 1000 * 24) / 1000)
       },
       handlePublish(id, row) {
-        setPublish(id).then(response => {
+        setPublishEmploy(id).then(response => {
           console.log(response.data)
           if (response.data === 1) {
             console.log('xixii')
@@ -254,7 +233,7 @@
         })
       },
       handleDraft(id, row) {
-        setDraft(id).then(response => {
+        setDraftEmploy(id).then(response => {
           console.log(response.data)
           console.log(typeof response.data)
           if (response.data === 1) {
@@ -269,7 +248,7 @@
         })
       },
       handleDelete(id, index) {
-        setDelete(id).then(response => {
+        setDeleteEmploy(id).then(response => {
           if (response.data === 1) {
             this.list.splice(index, 1)
             Notification({

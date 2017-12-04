@@ -18,11 +18,11 @@ const employment = {
   },
 
   mutations: {
-    // setPosition(state, article) {
-    //   state.position = article
-    //   console.log(article)
-    //   console.log(state.conditions)
-    // }
+    setPosition(state, article) {
+      state.position = article
+      console.log(article)
+      console.log(state.conditions)
+    }
   }
 }
 

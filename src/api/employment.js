@@ -1,6 +1,6 @@
 import axios from 'axios'
 const service = axios.create({
-  baseURL: 'https://easy-mock.com/mock/59c0c043e0dc663341afa72b/example', // api的base_url
+  baseURL: 'http://192.168.1.106:5000', // api的base_url
   timeout: 5000                 // 请求超时时间
   // headers: {
   //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -73,6 +73,31 @@ export function setDraft(id) {
 // 删除文章
 export function setDelete(id) {
   return service.get('/delete_article', {
+    params: {
+      'id': id
+    }
+  })
+}
+
+// 设置招聘信息为发布状态
+export function setPublishEmploy(id) {
+  return service.get('/publish_hire', {
+    params: {
+      'id': id
+    }
+  })
+}
+// 设置招聘信息为草稿状态
+export function setDraftEmploy(id) {
+  return service.get('/draft_hire', {
+    params: {
+      'id': id
+    }
+  })
+}
+// 删除招聘信息
+export function setDeleteEmploy(id) {
+  return service.get('/delete_hire', {
     params: {
       'id': id
     }

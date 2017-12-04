@@ -1,7 +1,7 @@
 import fetch from '@/utils/fetch'
 import axios from 'axios'
 const service = axios.create({
-  baseURL: 'http://10.139.9.200:5000', // api的base_url
+  baseURL: 'http://192.168.1.106:5000', // api的base_url
   timeout: 5000                 // 请求超时时间
   // headers: {
   //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
