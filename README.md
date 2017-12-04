@@ -4,9 +4,6 @@
 
 ## 开发
 ```bash
-    # 克隆项目
-    git clone https://github.com/PanJiaChen/vue-element-admin.git
-
     # 安装依赖
     npm install
     //or # 建议不要用cnpm  安装有各种诡异的bug 可以通过如下操作解决npm速度慢的问题
