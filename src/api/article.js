@@ -1,15 +1,4 @@
-import fetch from '@/utils/fetch'
-import axios from 'axios'
-const service = axios.create({
-  // baseURL: 'http://192.168.1.106:5000',
-  baseURL: 'http://10.139.19.78:5000', // api的base_url
-  timeout: 5000                 // 请求超时时间
-  // headers: {
-  //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-  //   'Accept': 'application/json'
-  // }
-})
-
+import service from '@/utils/fetch'
 export function fetchList(query) {
   // return fetch({
   //   url: '/get_all_news',
@@ -97,7 +86,7 @@ export function setDelete(id) {
 }
 
 export function fetchArticle(article) {
-  return fetch({
+  return service({
     url: '/article/article',
     method: 'get',
     params: { article }
@@ -105,7 +94,7 @@ export function fetchArticle(article) {
 }
 
 export function fetchPv(pv) {
-  return fetch({
+  return service({
     url: '/article/pv',
     method: 'get',
     params: { pv }

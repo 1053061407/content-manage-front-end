@@ -109,7 +109,7 @@
 </template>
 
 <script>
-  import { fetchList, fetchPv, fetchContent, cancelTop, setTop, setPublish, setDraft, setDelete } from '@/api/article'
+  import { fetchList, fetchContent, cancelTop, setTop, setPublish, setDraft, setDelete } from '@/api/article'
   import waves from '@/directive/waves/index.js' // 水波纹指令
   import { parseTime } from '@/utils'
   import { Notification } from 'element-ui'
@@ -359,12 +359,6 @@
           status: 'published',
           type: ''
         }
-      },
-      handleFetchPv(pv) {
-        fetchPv(pv).then(response => {
-          this.pvData = response.data.pvData
-          this.dialogPvVisible = true
-        })
       },
       handleDownload() {
         require.ensure([], () => {

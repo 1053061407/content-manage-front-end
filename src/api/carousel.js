@@ -1,14 +1,4 @@
-import axios from 'axios'
-const service = axios.create({
-  // baseURL: 'http://192.168.1.106:5000', // api的base_url
-  baseURL: 'http://10.139.19.78:5000', // api的base_url
-  timeout: 5000                 // 请求超时时间
-  // headers: {
-  //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-  //   'Accept': 'application/json'
-  // }
-})
-
+import service from '@/utils/fetch'
 export function fetchAllCarousels(query) {
   return service.get('/get_all_carousels', {
     params: query
