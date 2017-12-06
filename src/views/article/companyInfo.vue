@@ -88,9 +88,9 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="update">确 定</el-button>
+        <!--<el-button type="primary" @click="update">确 定</el-button>-->
         <router-link to="/article/newArticle">
-          <el-button @click="edit">编辑</el-button>
+          <el-button @click="edit" type="primary">编辑</el-button>
         </router-link>
       </div>
     </el-dialog>

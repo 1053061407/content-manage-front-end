@@ -11,6 +11,7 @@ const getters = {
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
   ruleForm: state => state.article.conditions,
-  position: state => state.employment.position
+  position: state => state.employment.position,
+  carousel: state => state.carousel.carousel
 }
 export default getters

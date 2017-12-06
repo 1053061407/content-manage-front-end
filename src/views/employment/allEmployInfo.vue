@@ -10,8 +10,6 @@
       </el-select>
 
       <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter">搜索</el-button>
-      <el-button class="filter-item" type="primary" icon="document" @click="handleDownload">导出</el-button>
-      <el-checkbox class="filter-item" @change='tableKey=tableKey+1' v-model="showAuditor">显示审核人</el-checkbox>
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row style="width: 100%">
@@ -87,9 +85,9 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="update">确 定</el-button>
+        <!--<el-button type="primary" @click="update">确 定</el-button>-->
         <router-link to="/employment/newEmployment">
-          <el-button @click="edit">编辑</el-button>
+          <el-button @click="edit" type="primary">编辑</el-button>
         </router-link>
       </div>
     </el-dialog>

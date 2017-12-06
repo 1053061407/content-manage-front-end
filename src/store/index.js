@@ -6,6 +6,7 @@ import permission from './modules/permission'
 import getters from './getters'
 import article from './modules/article'
 import employment from './modules/employment'
+import carousel from './modules/carousel'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
     user,
     permission,
     article,
-    employment
+    employment,
+    carousel
   },
   getters
 })

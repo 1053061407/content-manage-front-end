@@ -95,6 +95,7 @@
     methods: {
       newEmployment() {
         var time = Math.round(this.position.time) / 1000
+        console.log(time)
         var tmp = {
           'category': this.position.category,
           'position': this.position.position,
@@ -110,12 +111,19 @@
         }
         createEmployment(tmp).then(response => {
           console.log(response)
-          Notification({
-            title: '成功',
-            message: '创建成功',
-            type: 'success'
-          })
-          this.$router.push('/employment/newEmployment')
+          if (response.data !== '0') {
+            Notification({
+              title: '成功',
+              message: '创建成功',
+              type: 'success'
+            })
+            this.$router.push('/employment/allEmployInfo')
+          } else {
+            Notification.error({
+              title: '错误',
+              message: '创建失败'
+            })
+          }
         })
           .catch(function(error) {
             console.log(error)

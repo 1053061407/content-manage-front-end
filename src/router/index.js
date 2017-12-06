@@ -68,9 +68,11 @@ export const asyncRouterMap = [
     icon: 'form',
     name: '轮播图',
     children: [
-      { path: 'index', component: _import('carousel/index'), name: '轮播图一' },
-      { path: 'carouselTwo', component: _import('carousel/carouselTwo'), name: '轮播图二' },
-      { path: 'carouselThree', component: _import('carousel/carouselThree'), name: '轮播图三' }
+      { path: 'allCarousel', component: _import('carousel/allCarousel'), name: '所有轮播图' },
+      // { path: 'index', component: _import('carousel/index'), name: '轮播图一' },
+      // { path: 'carouselTwo', component: _import('carousel/carouselTwo'), name: '轮播图二' },
+      // { path: 'carouselThree', component: _import('carousel/carouselThree'), name: '轮播图三' },
+      { path: 'newCarousel', component: _import('carousel/newCarousel'), name: '新建轮播图' }
     ]
   },
   {
