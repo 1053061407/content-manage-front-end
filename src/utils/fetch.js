@@ -6,8 +6,8 @@ import store from '@/store'
 // 创建axios实例
 const service = axios.create({
   // baseURL: process.env.BASE_API, // api的base_url
-  baseURL: 'http://10.139.19.78:5000',
-  // baseURL: 'http://192.168.1.106:5000', // api的base_url
+  // baseURL: 'http://10.139.19.78:5000',
+  baseURL: 'http://192.168.1.106:5000', // api的base_url
   timeout: 5000                  // 请求超时时间
 })
 

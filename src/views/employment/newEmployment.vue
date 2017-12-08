@@ -15,28 +15,28 @@
           </el-select>
         </el-form-item>
         <el-form-item label="职位" prop="subtitle">
-          <el-input v-model="position.position"></el-input>
+          <el-input style="width: 16rem" v-model="position.position" type="textarea" autosize></el-input>
         </el-form-item>
         <el-form-item label="工作经验" prop="subtitle">
-          <el-input v-model="position.experience"></el-input>
+          <el-input style="width: 16rem" v-model="position.experience" type="textarea" autosize></el-input>
         </el-form-item>
         <el-form-item label="教育经历" prop="subtitle">
-          <el-input v-model="position.education"></el-input>
+          <el-input style="width: 16rem" v-model="position.education" type="textarea" autosize></el-input>
         </el-form-item>
         <el-form-item label="招聘人数" prop="subtitle">
-          <el-input v-model="position.numbers"></el-input>
+          <el-input style="width: 16rem" v-model="position.numbers" type="textarea" autosize></el-input>
         </el-form-item>
         <el-form-item label="职位描述" prop="subtitle">
-          <el-input v-model="position.detail"></el-input>
+          <el-input style="width: 16rem" v-model="position.detail" type="textarea" autosize></el-input>
         </el-form-item>
         <el-form-item label="职位要求" prop="subtitle">
-          <el-input v-model="position.requirement"></el-input>
+          <el-input style="width: 16rem" v-model="position.requirement" type="textarea" autosize></el-input>
         </el-form-item>
         <el-form-item label="待遇福利" prop="subtitle">
-          <el-input v-model="position.welfare"></el-input>
+          <el-input style="width: 16rem" v-model="position.welfare" type="textarea" autosize></el-input>
         </el-form-item>
         <el-form-item label="工作地点" prop="subtitle">
-          <el-input v-model="position.location"></el-input>
+          <el-input v-model="position.location" type="textarea" autosize style="width: 16rem"></el-input>
         </el-form-item>
         <el-form-item label="发布时间" prop="time">
           <el-date-picker v-model="position.time" type="datetime" placeholder="选择日期时间" size="large" style="width: 195px">
@@ -140,9 +140,9 @@
 
   .index-root {
     margin-top: 2rem;
-  .el-input {
-    width: 12rem;
-  }
+    .el-input {
+      width: 16rem;
+    }
   p {
     font-size: 1rem;
     color: #48576a;font-weight: 700;

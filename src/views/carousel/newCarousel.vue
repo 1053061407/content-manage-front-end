@@ -17,16 +17,16 @@
         </el-form-item>
         <div v-if="carousel.type == 1">
           <el-form-item label="标题" prop="title">
-            <el-input v-model="carousel.title"></el-input>
+            <el-input v-model="carousel.title" type="textarea" autosize style="width: 16rem"></el-input>
           </el-form-item>
           <el-form-item label="内容" prop="content">
-            <el-input v-model="carousel.content"></el-input>
+            <el-input v-model="carousel.content" type="textarea" autosize style="width: 16rem"></el-input>
           </el-form-item>
           <el-form-item label="按钮文本" prop="btnContent">
-            <el-input v-model="carousel.button.text"></el-input>
+            <el-input v-model="carousel.button.text" type="textarea" autosize style="width: 16rem"></el-input>
           </el-form-item>
           <el-form-item label="按钮链接" prop="btnUrl">
-            <el-input v-model="carousel.button.url"></el-input>
+            <el-input v-model="carousel.button.url" type="textarea" autosize style="width: 16rem"></el-input>
           </el-form-item>
           <p class="pStyle">载入方向</p>
           <el-form-item label="图一">

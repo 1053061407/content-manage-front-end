@@ -11,6 +11,18 @@ export function loginByUsername(username, password) {
     data
   })
 }
+/**
+ * 获取盐
+ * @param username
+ */
+
+export function getSalt(userName) {
+  return fetch.get('/get_salt', {
+    params: {
+      'userName': userName
+    }
+  })
+}
 
 export function logout() {
   return fetch({

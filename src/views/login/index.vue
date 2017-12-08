@@ -39,7 +39,9 @@
 <script>
 import { isvalidUsername } from '@/utils/validate'
 import socialSign from './socialsignin'
-
+// import { getSalt } from '@/api/login'
+import { Notification } from 'element-ui'
+import { passwordEncrypt } from '@/utils/encrypt'
 export default {
   components: { socialSign },
   name: 'login',
@@ -82,19 +84,79 @@ export default {
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
+        console.log(valid)
         if (valid) {
           this.loading = true
-          this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+          this.$store.dispatch('LoginByUsername', this.loginForm.username, this.loginForm.password).then(() => {
             this.loading = false
             this.$router.push({ path: '/' })
-                // this.showDialog = true
-          }).catch(() => {
-            this.loading = false
           })
+//          getSalt(this.loginForm.username).then((response) => {
+//            // 如果获取盐成功则登录，反之说明用户名不存在
+//            if (response.salt) {
+//              this.login(response.salt)
+//            } else {
+//              Notification({
+//                title: '失败',
+//                message: '用户名不存在',
+//                type: 'error',
+//                duration: 2000
+//              })
+//            }
+//          })
         } else {
-          console.log('error submit!!')
-          return false
+          Notification({
+            title: '失败',
+            message: '请完善登录信息',
+            type: 'error',
+            duration: 2000
+          })
         }
+      })
+    },
+    // 获取盐之后登录
+    login(salt) {
+      // 对密码进行加密
+      const cipher = passwordEncrypt(this.loginForm.password, salt).toString()
+      // 将时间进行加密
+      // const time = timeEncrypt(this.getTime());
+      // 将加密的密码和时间进行拼接，以空格分开
+      // const password = `${cipher} ${time}`;
+      // 登录
+      this.$store.dispatch('LoginByUsername', this.loginForm.username, cipher).then((data) => {
+        console.log(data)
+        console.log(data.data)
+        if (data.status === 1) {
+          this.loading = false
+          this.$router.push({ path: '/' })
+        }
+        if (data.status === 0) {
+          // 密码或用户名错误
+          Notification({
+            title: '失败',
+            message: '用户名和密码不匹配',
+            type: 'error',
+            duration: 2000
+          })
+        }
+        if (data.status === -1) {
+          // 密码不存在
+          Notification({
+            title: '失败',
+            message: '用户名不存在',
+            type: 'error',
+            duration: 2000
+          })
+        }
+                // this.showDialog = true
+      }).catch((error) => {
+        Notification({
+          title: '失败',
+          message: error,
+          type: 'error',
+          duration: 2000
+        })
+        this.loading = false
       })
     },
     afterQRScan() {

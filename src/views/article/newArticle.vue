@@ -4,10 +4,10 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left">
       <div style="margin-left: 80px">
         <el-form-item label="文章标题" prop="title">
-          <el-input v-model="ruleForm.title"></el-input>
+          <el-input v-model="ruleForm.title" type="textarea" autosize style="width: 16rem"></el-input>
         </el-form-item>
         <el-form-item label="文章子标题" prop="subtitle">
-          <el-input v-model="ruleForm.subtitle"></el-input>
+          <el-input v-model="ruleForm.subtitle" type="textarea" autosize style="width: 16rem"></el-input>
         </el-form-item>
         <el-form-item label="发布时间" prop="time">
           <el-date-picker v-model="ruleForm.time" type="datetime" placeholder="选择日期时间" size="large" style="width: 195px">
@@ -34,7 +34,7 @@
     </el-form>
     <div style="margin-top: 60px">
       <div style="width: 800px;margin-left:180px">
-        <tinymce :height='200' v-model="ruleForm.content"></tinymce>
+        <tinymce :height='700' v-model="ruleForm.content"></tinymce>
       </div>
       <div class='editor-content' v-html='ruleForm.content' style="margin-left: 180px">
       </div>
