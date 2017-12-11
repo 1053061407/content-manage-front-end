@@ -42,6 +42,7 @@ import socialSign from './socialsignin'
 // import { getSalt } from '@/api/login'
 import { Notification } from 'element-ui'
 import { passwordEncrypt } from '@/utils/encrypt'
+import { getSalt } from '@/api/login'
 export default {
   components: { socialSign },
   name: 'login',
@@ -87,23 +88,23 @@ export default {
         console.log(valid)
         if (valid) {
           this.loading = true
-          this.$store.dispatch('LoginByUsername', this.loginForm.username, this.loginForm.password).then(() => {
-            this.loading = false
-            this.$router.push({ path: '/' })
-          })
-//          getSalt(this.loginForm.username).then((response) => {
-//            // 如果获取盐成功则登录，反之说明用户名不存在
-//            if (response.salt) {
-//              this.login(response.salt)
-//            } else {
-//              Notification({
-//                title: '失败',
-//                message: '用户名不存在',
-//                type: 'error',
-//                duration: 2000
-//              })
-//            }
+//          this.$store.dispatch('LoginByUsername', this.loginForm.username, this.loginForm.password).then(() => {
+//            this.loading = false
+//            this.$router.push({ path: '/' })
 //          })
+          getSalt(this.loginForm.username).then((response) => {
+            // 如果获取盐成功则登录，反之说明用户名不存在
+            if (response.salt) {
+              this.login(response.salt)
+            } else {
+              Notification({
+                title: '失败',
+                message: '用户名不存在',
+                type: 'error',
+                duration: 2000
+              })
+            }
+          })
         } else {
           Notification({
             title: '失败',
