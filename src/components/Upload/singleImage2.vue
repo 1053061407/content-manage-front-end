@@ -1,6 +1,6 @@
 <template>
 	<div class="singleImageUpload2 upload-container">
-		<el-upload class="image-uploader" :data="dataObj" drag :multiple="false" :show-file-list="false" action="https://httpbin.org/post"
+		<el-upload class="image-uploader" :data="dataObj" drag :multiple="false" :show-file-list="false" action="http://api.hello.com:5000/post_img"
 		  :on-success="handleImageScucess">
 			<i class="el-icon-upload"></i>
 			<div class="el-upload__text">Drag或<em>点击上传</em></div>
