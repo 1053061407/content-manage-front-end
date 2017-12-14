@@ -9,7 +9,6 @@
         </el-option>
       </el-select>
 
-      <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter">搜索</el-button>
       <el-button class="filter-item" type="primary" icon="document" @click="handleDownload">导出</el-button>
     </div>
 
@@ -82,15 +81,11 @@
 
 <script>
   import { fetchAllCarousels, fetchCarouselContent, DeleteCarousel, DraftCarousel, PublishCarousel } from '@/api/carousel'
-  import waves from '@/directive/waves/index.js' // 水波纹指令
   import { parseTime } from '@/utils'
   import { Notification } from 'element-ui'
 
   export default {
     name: 'table_demo',
-    directives: {
-      waves
-    },
     data() {
       return {
         list: null,
@@ -98,10 +93,6 @@
         listLoading: false,
         listQuery: {
           page: 0
-//          limit: 10,
-//          title: undefined,
-//          type: undefined,
-//          sort: '+id'
         },
         temp: {
           id: undefined,
@@ -148,7 +139,7 @@
           console.log(response)
           console.log(response.data.data)
           this.list = response.data.data
-//          this.total = response.data.total
+          // this.total = response.data.total
           this.listLoading = false
         })
           .catch(function(error) {
@@ -277,7 +268,7 @@
       },
       handleDownload() {
         require.ensure([], () => {
-          const { export_json_to_excel } = require('vendor/Export2Excel')
+          const { export_json_to_excel } = require('../../vendor/Export2Excel')
           const tHeader = ['类型', '标题', '状态']
           const filterVal = ['type', 'title', 'status']
           const data = this.formatJson(filterVal, this.list)

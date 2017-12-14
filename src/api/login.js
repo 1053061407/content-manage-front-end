@@ -1,41 +1,35 @@
-import fetch from '@/utils/fetch'
+import request from '@/utils/request'
 
 export function loginByUsername(username, password) {
-  const data = {
-    username,
-    password
-  }
-  return fetch({
-    url: '/login/login',
+  return request({
+    url: '/login',
     method: 'post',
-    data
+    data: {
+      username,
+      password
+    }
   })
 }
-/**
- * 获取盐
- * @param username
- */
 
 export function getSalt(userName) {
-  return fetch.get('/get_salt', {
+  return request.get('/get_salt', {
     params: {
       'userName': userName
     }
   })
 }
 
-export function logout() {
-  return fetch({
-    url: '/login/logout',
-    method: 'post'
-  })
-}
-
-export function getUserInfo(token) {
-  return fetch({
+export function getInfo(token) {
+  return request({
     url: '/user/info',
     method: 'get',
     params: { token }
   })
 }
 
+export function logout() {
+  return request({
+    url: '/logout',
+    method: 'post'
+  })
+}

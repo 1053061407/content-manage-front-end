@@ -1,4 +1,4 @@
-import service from '@/utils/fetch'
+import service from '@/utils/request'
 export function fetchAllCarousels(query) {
   return service.get('/get_all_carousels', {
     params: query

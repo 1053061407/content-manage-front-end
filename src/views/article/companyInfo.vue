@@ -14,7 +14,6 @@
         </el-option>
       </el-select>
 
-      <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter">搜索</el-button>
       <el-button class="filter-item" type="primary" icon="document" @click="handleDownload">导出</el-button>
       <el-checkbox class="filter-item" @change='tableKey=tableKey+1' v-model="showAuditor">显示审核人</el-checkbox>
     </div>
@@ -110,7 +109,6 @@
 
 <script>
   import { fetchList, fetchContent, cancelTop, setTop, setPublish, setDraft, setDelete } from '@/api/article'
-  import waves from '@/directive/waves/index.js' // 水波纹指令
   import { parseTime } from '@/utils'
   import { Notification } from 'element-ui'
 
@@ -129,9 +127,6 @@
 
   export default {
     name: 'table_demo',
-    directives: {
-      waves
-    },
     data() {
       return {
         list: null,
@@ -140,10 +135,6 @@
         listQuery: {
           page: 0,
           category: 'company'
-//          limit: 10,
-//          title: undefined,
-//          type: undefined,
-//          sort: '+id'
         },
         temp: {
           id: undefined,
@@ -192,7 +183,7 @@
         fetchList(this.listQuery).then(response => {
           console.log(response.data.data)
           this.list = response.data.data
-//          this.total = response.data.total
+          // this.total = response.data.total
           this.listLoading = false
         })
           .catch(function(error) {
@@ -202,9 +193,6 @@
       edit() {
         fetchContent(this.temp.id).then(response => {
           console.log(response)
-//          var unixTimestamp = new Date(response.data.time * 1000)
-//          var commonTime = unixTimestamp.toLocaleString()
-//          console.log(commonTime)
           response.data.id = this.temp.id
           response.data.time = response.data.time * 1000
           response.data.article_status = 'edit'
@@ -219,7 +207,7 @@
         this.getList()
       },
       handleSizeChange(val) {
-//        this.listQuery.limit = val
+      // this.listQuery.limit = val
         this.getList()
       },
       handleCurrentChange(val) {
@@ -362,7 +350,7 @@
       },
       handleDownload() {
         require.ensure([], () => {
-          const { export_json_to_excel } = require('vendor/Export2Excel')
+          const { export_json_to_excel } = require('../../vendor/Export2Excel')
           const tHeader = ['时间', '地区', '类型', '标题', '重要性']
           const filterVal = ['timestamp', 'province', 'type', 'title', 'importance']
           const data = this.formatJson(filterVal, this.list)

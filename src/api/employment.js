@@ -1,4 +1,4 @@
-import service from '@/utils/fetch'
+import service from '@/utils/request'
 export function fetchAllEmployment(query) {
   return service.get('/get_all_hires', {
     params: query

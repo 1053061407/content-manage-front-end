@@ -1,50 +1,42 @@
 <template>
   <div class="login-container">
-    <el-form class="card-box login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h3 class="title">系统登录</h3>
-
+    <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
+      class="card-box login-form">
+      <h3 class="title">vue-element-admin</h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
-          <icon-svg icon-class="user" />
+          <svg-icon icon-class="user" />
         </span>
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="邮箱" />
+        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
       </el-form-item>
-
       <el-form-item prop="password">
         <span class="svg-container">
-          <icon-svg icon-class="password" />
+          <svg-icon icon-class="password"></svg-icon>
         </span>
         <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
-          placeholder="密码" />
-        <span class='show-pwd' @click='showPwd'><icon-svg icon-class="eye" /></span>
+          placeholder="password"></el-input>
+          <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
-
-        <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin">登录</el-button>
-
-      <div class='tips'>账号:admin 密码随便填</div>
-      <div class='tips'>账号:editor  密码随便填</div>
-
-      <el-button class='thirdparty-button' type="primary" @click='showDialog=true'>打开第三方登录</el-button>
+      <el-form-item>
+        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
+          Sign in
+        </el-button>
+      </el-form-item>
+      <div class="tips">
+        <span style="margin-right:20px;">username: admin</span>
+        </span> password: admin</span>
+      </div>
     </el-form>
-
-    <el-dialog title="第三方验证" :visible.sync="showDialog">
-      本地不能模拟，请结合自己业务进行模拟！！！<br/><br/><br/>
-      邮箱登录成功,请选择第三方验证<br/>
-      <social-sign />
-    </el-dialog>
-
   </div>
 </template>
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
-import socialSign from './socialsignin'
-// import { getSalt } from '@/api/login'
+import { getSalt } from '@/api/login'
 import { Notification } from 'element-ui'
 import { passwordEncrypt } from '@/utils/encrypt'
-import { getSalt } from '@/api/login'
+
 export default {
-  components: { socialSign },
   name: 'login',
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -54,9 +46,9 @@ export default {
         callback()
       }
     }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('密码不能小于6位'))
+    const validatePass = (rule, value, callback) => {
+      if (value.length < 5) {
+        callback(new Error('密码不能小于5位'))
       } else {
         callback()
       }
@@ -64,15 +56,14 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '1111111'
+        password: 'admin'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
-      pwdType: 'password',
       loading: false,
-      showDialog: false
+      pwdType: 'password'
     }
   },
   methods: {
@@ -85,17 +76,13 @@ export default {
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
-        console.log(valid)
         if (valid) {
           this.loading = true
-//          this.$store.dispatch('LoginByUsername', this.loginForm.username, this.loginForm.password).then(() => {
-//            this.loading = false
-//            this.$router.push({ path: '/' })
-//          })
           getSalt(this.loginForm.username).then((response) => {
             // 如果获取盐成功则登录，反之说明用户名不存在
-            if (response.salt) {
-              this.login(response.salt)
+            console.log(response)
+            if (response.data.salt) {
+              this.login(response.data.salt)
             } else {
               Notification({
                 title: '失败',
@@ -119,19 +106,16 @@ export default {
     login(salt) {
       // 对密码进行加密
       const cipher = passwordEncrypt(this.loginForm.password, salt).toString()
-      // 将时间进行加密
-      // const time = timeEncrypt(this.getTime());
-      // 将加密的密码和时间进行拼接，以空格分开
-      // const password = `${cipher} ${time}`;
-      // 登录
-      this.$store.dispatch('LoginByUsername', this.loginForm.username, cipher).then((data) => {
-        console.log(data)
-        console.log(data.data)
-        if (data.status === 1) {
-          this.loading = false
+      const data = {
+        'username': this.loginForm.username,
+        'password': cipher
+      }
+      this.$store.dispatch('LoginByUsername', data).then((response) => {
+        this.loading = false
+        if (response.data === 1) {
           this.$router.push({ path: '/' })
         }
-        if (data.status === 0) {
+        if (response.data === 0) {
           // 密码或用户名错误
           Notification({
             title: '失败',
@@ -140,16 +124,16 @@ export default {
             duration: 2000
           })
         }
-        if (data.status === -1) {
-          // 密码不存在
-          Notification({
-            title: '失败',
-            message: '用户名不存在',
-            type: 'error',
-            duration: 2000
-          })
-        }
-                // this.showDialog = true
+//        if (data.status === -1) {
+//          // 密码不存在
+//          Notification({
+//            title: '失败',
+//            message: '用户名不存在',
+//            type: 'error',
+//            duration: 2000
+//          })
+//        }
+        // this.showDialog = true
       }).catch((error) => {
         Notification({
           title: '失败',
@@ -159,31 +143,7 @@ export default {
         })
         this.loading = false
       })
-    },
-    afterQRScan() {
-          // const hash = window.location.hash.slice(1)
-          // const hashObj = getQueryObject(hash)
-          // const originUrl = window.location.origin
-          // history.replaceState({}, '', originUrl)
-          // const codeMap = {
-          //   wechat: 'code',
-          //   tencent: 'code'
-          // }
-          // const codeName = hashObj[codeMap[this.auth_type]]
-          // if (!codeName) {
-          //   alert('第三方登录失败')
-          // } else {
-          //   this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-          //     this.$router.push({ path: '/' })
-          //   })
-          // }
     }
-  },
-  created() {
-        // window.addEventListener('hashchange', this.afterQRScan)
-  },
-  destroyed() {
-        // window.removeEventListener('hashchange', this.afterQRScan)
   }
 }
 </script>
@@ -260,6 +220,7 @@ export default {
       font-size: 16px;
       color: $dark_gray;
       cursor: pointer;
+      user-select:none;
     }
     .thirdparty-button{
       position: absolute;

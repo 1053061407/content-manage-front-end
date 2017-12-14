@@ -1,4 +1,4 @@
-import service from '@/utils/fetch'
+import service from '@/utils/request'
 export function fetchList(query) {
   // return fetch({
   //   url: '/get_all_news',

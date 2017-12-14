@@ -1,5 +1,9 @@
 <template>
   <html>
+  <div class="container">
+    <!--<iconSvg icon-style="style" icon-class="name"></iconSvg>-->
+    <!-- style为icon样式，name为icon名字 -->
+  </div>
   <div class="index-root">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="left">
       <div style="margin-left: 80px">
@@ -51,21 +55,14 @@
   import { updateArticle } from '@/api/article'
   import Tinymce from '@/components/Tinymce'
   import Upload from '@/components/Upload/singleImage3'
+  import iconSvg from '@/components/SvgIcon/index.vue'
   export default {
-    components: { Tinymce, Upload },
+    components: { Tinymce, Upload, iconSvg },
     destroyed() {
       this.$store.commit('setConditions', {})
     },
     data() {
       return {
-//        ruleForm: {
-//          title: '',
-//          subtitle: '',
-//          timestamp: '',
-//          category: '',
-//          image_url: '',
-//          content: ''
-//        },
         rules: {
           title: [
             { required: true, message: '请输入标题', trigger: 'blur' }
