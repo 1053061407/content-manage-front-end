@@ -35,7 +35,7 @@
 
       <el-table-column min-width="300px" label="标题">
         <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row,scope.row.id)">{{scope.row.title}}</span>
+          <el-button type="text" @click=handleUpdate(scope.row,scope.row.id) size="medium" >{{scope.row.title}}</el-button>
           <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
         </template>
       </el-table-column>
@@ -207,7 +207,7 @@
         this.getList()
       },
       handleSizeChange(val) {
-      // this.listQuery.limit = val
+        // this.listQuery.limit = val
         this.getList()
       },
       handleCurrentChange(val) {

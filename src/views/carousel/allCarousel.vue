@@ -22,8 +22,7 @@
 
       <el-table-column min-width="200px" label="标题" align="center">
         <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row,scope.row.id)">{{scope.row.title}}</span>
-          <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
+          <el-button type="text" @click=handleUpdate(scope.row,scope.row.id) size="medium" >{{scope.row.title}}</el-button>
         </template>
       </el-table-column>
 

@@ -28,7 +28,7 @@
 
       <el-table-column min-width="200px" label="职位">
         <template slot-scope="scope">
-          <span class="link-type" @click="handleUpdate(scope.row,scope.row.id)">{{scope.row.position}}</span>
+          <el-button type="text" @click=handleUpdate(scope.row,scope.row.id) size="medium" >{{scope.row.position}}</el-button>
           <!--<el-tag>{{scope.row.type | typeFilter}}</el-tag>-->
         </template>
       </el-table-column>

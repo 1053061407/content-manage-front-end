@@ -1,7 +1,3 @@
-/*
- * Created by wuyiqing at 2017/9/27 下午9:01
- * 对私密信息进行加密
- */
 import HmacMD5 from 'crypto-js/hmac-md5'
 import MD5 from 'crypto-js/md5'
 
@@ -24,8 +20,11 @@ export const timeEncrypt = (time) => {
 export const passwordEncrypt = (password, key) => {
   // 将密码用 MD5 加密
   const cryptPassword = MD5(password).toString()
-  // 使用 HmacMD5 进行再次加密
-  const cipher = HmacMD5(cryptPassword, key)
-  return cipher
+  console.log(cryptPassword)
+  // 使用 MD5 进行再次加密
+  const cryptPassword2 = MD5(cryptPassword + key).toString()
+  // const cipher = HmacMD5(cryptPassword+key)
+  console.log(cryptPassword2)
+  return cryptPassword2
 }
 

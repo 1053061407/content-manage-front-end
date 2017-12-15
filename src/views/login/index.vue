@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
-      class="card-box login-form">
-      <h3 class="title">vue-element-admin</h3>
+             class="card-box login-form">
+      <h3 class="title">官网内容后台管理系统</h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
@@ -14,116 +14,112 @@
           <svg-icon icon-class="password"></svg-icon>
         </span>
         <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
-          placeholder="password"></el-input>
-          <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
+                  placeholder="password"></el-input>
+        <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
           Sign in
         </el-button>
       </el-form-item>
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        </span> password: admin</span>
-      </div>
     </el-form>
   </div>
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
-import { getSalt } from '@/api/login'
-import { Notification } from 'element-ui'
-import { passwordEncrypt } from '@/utils/encrypt'
+  import { isvalidUsername } from '@/utils/validate'
+  import { getSalt } from '@/api/login'
+  import { Notification } from 'element-ui'
+  import { passwordEncrypt } from '@/utils/encrypt'
 
-export default {
-  name: 'login',
-  data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
-    }
-    const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
-      } else {
-        callback()
-      }
-    }
-    return {
-      loginForm: {
-        username: 'admin',
-        password: 'admin'
-      },
-      loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
-      },
-      loading: false,
-      pwdType: 'password'
-    }
-  },
-  methods: {
-    showPwd() {
-      if (this.pwdType === 'password') {
-        this.pwdType = ''
-      } else {
-        this.pwdType = 'password'
-      }
-    },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          getSalt(this.loginForm.username).then((response) => {
-            // 如果获取盐成功则登录，反之说明用户名不存在
-            console.log(response)
-            if (response.data.salt) {
-              this.login(response.data.salt)
-            } else {
-              Notification({
-                title: '失败',
-                message: '用户名不存在',
-                type: 'error',
-                duration: 2000
-              })
-            }
-          })
+  export default {
+    name: 'login',
+    data() {
+      const validateUsername = (rule, value, callback) => {
+        if (!isvalidUsername(value)) {
+          callback(new Error('请输入正确的用户名'))
         } else {
-          Notification({
-            title: '失败',
-            message: '请完善登录信息',
-            type: 'error',
-            duration: 2000
-          })
+          callback()
         }
-      })
-    },
-    // 获取盐之后登录
-    login(salt) {
-      // 对密码进行加密
-      const cipher = passwordEncrypt(this.loginForm.password, salt).toString()
-      const data = {
-        'username': this.loginForm.username,
-        'password': cipher
       }
-      this.$store.dispatch('LoginByUsername', data).then((response) => {
-        this.loading = false
-        if (response.data === 1) {
-          this.$router.push({ path: '/' })
+      const validatePass = (rule, value, callback) => {
+        if (value.length < 5) {
+          callback(new Error('密码不能小于5位'))
+        } else {
+          callback()
         }
-        if (response.data === 0) {
-          // 密码或用户名错误
-          Notification({
-            title: '失败',
-            message: '用户名和密码不匹配',
-            type: 'error',
-            duration: 2000
-          })
+      }
+      return {
+        loginForm: {
+          username: 'admin',
+          password: ''
+        },
+        loginRules: {
+          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+          password: [{ required: true, trigger: 'blur', validator: validatePass }]
+        },
+        loading: false,
+        pwdType: 'password'
+      }
+    },
+    methods: {
+      showPwd() {
+        if (this.pwdType === 'password') {
+          this.pwdType = ''
+        } else {
+          this.pwdType = 'password'
         }
+      },
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            this.loading = true
+            getSalt(this.loginForm.username).then((response) => {
+              // 如果获取盐成功则登录，反之说明用户名不存在
+              console.log(response)
+              if (response.data.salt) {
+                this.login(response.data.salt)
+              } else {
+                Notification({
+                  title: '失败',
+                  message: '用户名不存在',
+                  type: 'error',
+                  duration: 2000
+                })
+              }
+            })
+          } else {
+            Notification({
+              title: '失败',
+              message: '请完善登录信息',
+              type: 'error',
+              duration: 2000
+            })
+          }
+        })
+      },
+      // 获取盐之后登录
+      login(salt) {
+        // 对密码进行加密
+        const cipher = passwordEncrypt(this.loginForm.password, salt).toString()
+        const data = {
+          'username': this.loginForm.username,
+          'password': cipher
+        }
+        this.$store.dispatch('LoginByUsername', data).then((response) => {
+          this.loading = false
+          if (response.data === 1) {
+            this.$router.push({ path: '/' })
+          }
+          if (response.data === 0) {
+            // 密码或用户名错误
+            Notification({
+              title: '失败',
+              message: '用户名和密码不匹配',
+              type: 'error',
+              duration: 2000
+            })
+          }
 //        if (data.status === -1) {
 //          // 密码不存在
 //          Notification({
@@ -133,19 +129,19 @@ export default {
 //            duration: 2000
 //          })
 //        }
-        // this.showDialog = true
-      }).catch((error) => {
-        Notification({
-          title: '失败',
-          message: error,
-          type: 'error',
-          duration: 2000
+          // this.showDialog = true
+        }).catch((error) => {
+          Notification({
+            title: '失败',
+            message: error,
+            type: 'error',
+            duration: 2000
+          })
+          this.loading = false
         })
-        this.loading = false
-      })
+      }
     }
   }
-}
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
@@ -155,77 +151,77 @@ export default {
   $light_gray:#eee;
 
   .login-container {
-    @include relative;
+  @include relative;
     height: 100vh;
     background-color: $bg;
-    input:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0px 1000px #293444 inset !important;
-      -webkit-text-fill-color: #fff !important;
-    }
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 47px;
-    }
-    .el-input {
-      display: inline-block;
-      height: 47px;
-      width: 85%;
-    }
-    .tips {
-      font-size: 14px;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-    .svg-container {
-      padding: 6px 5px 6px 15px;
-      color: $dark_gray;
-      vertical-align: middle;
-      width: 30px;
-      display: inline-block;
-      &_login {
-        font-size: 20px;
-      }
-    }
-    .title {
-      font-size: 26px;
-      font-weight: 400;
-      color: $light_gray;
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-weight: bold;
-    }
-    .login-form {
-      position: absolute;
-      left: 0;
-      right: 0;
-      width: 400px;
-      padding: 35px 35px 15px 35px;
-      margin: 120px auto;
-    }
-    .el-form-item {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      color: #454545;
-    }
-    .show-pwd {
-      position: absolute;
-      right: 10px;
-      top: 7px;
-      font-size: 16px;
-      color: $dark_gray;
-      cursor: pointer;
-      user-select:none;
-    }
-    .thirdparty-button{
-      position: absolute;
-      right: 35px;
-      bottom: 28px;
-    }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #293444 inset !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  input {
+    background: transparent;
+    border: 0px;
+    -webkit-appearance: none;
+    border-radius: 0px;
+    padding: 12px 5px 12px 15px;
+    color: $light_gray;
+    height: 47px;
+  }
+  .el-input {
+    display: inline-block;
+    height: 47px;
+    width: 85%;
+  }
+  .tips {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .svg-container {
+    padding: 6px 5px 6px 15px;
+    color: $dark_gray;
+    vertical-align: middle;
+    width: 30px;
+    display: inline-block;
+  &_login {
+     font-size: 20px;
+   }
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 400;
+    color: $light_gray;
+    margin: 0px auto 40px auto;
+    text-align: center;
+    font-weight: bold;
+  }
+  .login-form {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 400px;
+    padding: 35px 35px 15px 35px;
+    margin: 120px auto;
+  }
+  .el-form-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: #454545;
+  }
+  .show-pwd {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    font-size: 16px;
+    color: $dark_gray;
+    cursor: pointer;
+    user-select:none;
+  }
+  .thirdparty-button{
+    position: absolute;
+    right: 35px;
+    bottom: 28px;
+  }
   }
 </style>
