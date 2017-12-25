@@ -8,7 +8,7 @@
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key">
         </el-option>
       </el-select>
-
+      <el-button class="filter-item" type="primary" icon="document" @click="handleDownload">导出</el-button>
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row style="width: 100%">
@@ -176,7 +176,7 @@
           console.log(response)
           response.data.id = this.temp.id
           response.data.time = response.data.time * 1000
-          response.data.article_status = 'edit'
+          response.data.position_status = 'edit'
           this.$store.commit('setPosition', response.data)
         })
           .catch(function(error) {
@@ -247,51 +247,11 @@
       },
       handleUpdate(row, id) {
         this.temp = Object.assign({}, row)
-        console.log(id)
+        console.log(this.temp)
         this.temp.id = id
         this.temp.position = row.position
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
-      },
-      create() {
-        this.temp.id = parseInt(Math.random() * 100) + 1024
-        this.temp.timestamp = +new Date()
-        this.list.unshift(this.temp)
-        this.dialogFormVisible = false
-        this.$notify({
-          title: '成功',
-          message: '创建成功',
-          type: 'success',
-          duration: 2000
-        })
-      },
-      update() {
-        this.temp.timestamp = +this.temp.timestamp
-        for (const v of this.list) {
-          if (v.id === this.temp.id) {
-            const index = this.list.indexOf(v)
-            this.list.splice(index, 1, this.temp)
-            break
-          }
-        }
-        this.dialogFormVisible = false
-        this.$notify({
-          title: '成功',
-          message: '更新成功',
-          type: 'success',
-          duration: 2000
-        })
-      },
-      resetTemp() {
-        this.temp = {
-          id: undefined,
-          importance: 0,
-          remark: '',
-          timestamp: 0,
-          title: '',
-          status: 'published',
-          type: ''
-        }
       },
       handleDownload() {
         require.ensure([], () => {

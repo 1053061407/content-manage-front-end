@@ -15,7 +15,6 @@ export function fetchContent(id) {
 }
 // 用于新建一条招聘
 export function createEmployment(position) {
-  console.log(position)
   return service.post('/add_hire', {
     'category': position.category,
     'position': position.position,
@@ -31,17 +30,21 @@ export function createEmployment(position) {
   })
 }
 // 用于保存编辑的招聘信息
-export function updateEmployment(condition) {
-  console.log(condition)
+export function updateEmployment(position) {
+  console.log(position)
   return service.post('/update_hire', {
-    'id': condition.id,
-    'title': condition.title,
-    'subtitle': condition.subtitle,
-    'time': condition.time,
-    'category': condition.category,
-    'status': condition.status,
-    'cover': condition.cover,
-    'content': condition.content
+    'id': position.id,
+    'category': position.category,
+    'position': position.position,
+    'time': position.time,
+    'status': position.status,
+    'experience': position.experience,
+    'education': position.education,
+    'numbers': position.numbers,
+    'detail': position.detail,
+    'requirement': position.requirement,
+    'welfare': position.welfare,
+    'location': position.location
   })
 }
 

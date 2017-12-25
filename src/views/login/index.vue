@@ -120,16 +120,6 @@
               duration: 2000
             })
           }
-//        if (data.status === -1) {
-//          // 密码不存在
-//          Notification({
-//            title: '失败',
-//            message: '用户名不存在',
-//            type: 'error',
-//            duration: 2000
-//          })
-//        }
-          // this.showDialog = true
         }).catch((error) => {
           Notification({
             title: '失败',

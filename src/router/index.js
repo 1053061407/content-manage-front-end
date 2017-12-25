@@ -52,7 +52,7 @@ export const constantRouterMap = [
     children: [
       { path: 'hotSpot', component: _import('article/hotSpot'), meta: { title: '行业热点' }},
       { path: 'companyInfo', component: _import('article/companyInfo'), meta: { title: '公司资讯' }},
-      { path: 'newArticle', component: _import('article/newArticle'), meta: { title: '新建资讯' }}
+      { path: 'newArticle', component: _import('article/newArticle'), meta: { title: '新建文章' }}
     ]
   },
   {

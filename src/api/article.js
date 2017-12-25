@@ -1,10 +1,5 @@
 import service from '@/utils/request'
 export function fetchList(query) {
-  // return fetch({
-  //   url: '/get_all_news',
-  //   method: 'get',
-  //   params: query
-  // })
   return service.get('/get_all_articles', {
     params: query
   })

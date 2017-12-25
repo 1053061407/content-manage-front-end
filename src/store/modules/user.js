@@ -4,7 +4,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 const user = {
   state: {
     token: getToken(),
-    name: '',
+    name: getToken(),
     avatar: '',
     roles: []
   },
@@ -32,12 +32,8 @@ const user = {
       console.log(data.password)
       return new Promise((resolve, reject) => {
         loginByUsername(username, data.password).then(response => {
-          console.log(response)
-          console.log(response.data)
           const data = response.data
           setToken(username)
-          commit('SET_NAME', getToken())
-          commit('SET_TOKEN', data.token)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -63,7 +59,7 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        logout().then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           removeToken()

@@ -38,7 +38,7 @@
     </el-form>
     <div style="margin-top: 60px">
       <div style="width: 800px;margin-left:180px">
-        <tinymce :height='700' v-model="ruleForm.content"></tinymce>
+        <tinymce :height='300' v-model="ruleForm.content"></tinymce>
       </div>
       <div class='editor-content' v-html='ruleForm.content' style="margin-left: 180px">
       </div>
@@ -89,14 +89,6 @@
     },
     methods: {
       newArtilce() {
-//        var form = new FormData()
-//        form.append('title', this.ruleForm.title)
-//        form.append('subtitle', this.ruleForm.subtitle)
-//        form.append('time', Math.round(this.ruleForm.timestamp) / 1000)
-//        form.append('category', this.ruleForm.category)
-//        form.append('status', this.ruleForm.status)
-//        form.append('cover', this.ruleForm.cover)
-//        form.append('content', this.ruleForm.content)
         var time = Math.round(this.ruleForm.time) / 1000
         var tmp = {
           'title': this.ruleForm.title,
