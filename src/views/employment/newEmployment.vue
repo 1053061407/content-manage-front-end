@@ -50,7 +50,7 @@
         </el-form-item>
       </div>
     </el-form>
-    <el-button v-if="position.position_status == 'edit'" type="primary" size="medium" style="margin:40px 0 0 500px" @click="newEmployment">保存</el-button>
+    <el-button v-if="position.position_status == 'edit'" type="primary" size="medium" style="margin:40px 0 0 500px" @click="updateEmployment">保存</el-button>
     <el-button v-else type="primary" size="medium" style="margin:40px 0 0 500px" @click="newEmployment">创建</el-button>
   </div>
   </html>
@@ -94,86 +94,87 @@
       ])
     },
     methods: {
+      updateEmployment() {
+        var time = Math.round(this.position.time) / 1000
+        var tmp
+        tmp = {
+          'id': this.position.id,
+          'category': this.position.category,
+          'position': this.position.position,
+          'time': time,
+          'experience': this.position.experience,
+          'education': this.position.education,
+          'numbers': this.position.numbers,
+          'detail': this.position.detail,
+          'requirement': this.position.requirement,
+          'welfare': this.position.welfare,
+          'location': this.position.location,
+          'status': this.position.status
+        }
+        updateEmployment(tmp).then(response => {
+          console.log(response)
+          if (response.data !== 0) {
+            Notification({
+              title: '成功',
+              message: '修改成功',
+              type: 'success'
+            })
+            this.$router.push('/employment/allEmployInfo')
+          } else {
+            Notification.error({
+              title: '错误',
+              message: '修改失败'
+            })
+          }
+        })
+          .catch(function(error) {
+            console.log(error)
+            Notification.error({
+              title: '错误',
+              message: '修改失败'
+            })
+          })
+      },
       newEmployment() {
         var time = Math.round(this.position.time) / 1000
         console.log(time)
         var tmp
-        if (this.position.id !== '') {
-          tmp = {
-            'id': this.position.id,
-            'category': this.position.category,
-            'position': this.position.position,
-            'time': time,
-            'experience': this.position.experience,
-            'education': this.position.education,
-            'numbers': this.position.numbers,
-            'detail': this.position.detail,
-            'requirement': this.position.requirement,
-            'welfare': this.position.welfare,
-            'location': this.position.location,
-            'status': this.position.status
-          }
-          updateEmployment(tmp).then(response => {
-            console.log(response)
-            if (response.data !== '0') {
-              Notification({
-                title: '成功',
-                message: '修改成功',
-                type: 'success'
-              })
-              this.$router.push('/employment/allEmployInfo')
-            } else {
-              Notification.error({
-                title: '错误',
-                message: '修改失败'
-              })
-            }
-          })
-            .catch(function(error) {
-              console.log(error)
-              Notification.error({
-                title: '错误',
-                message: '修改失败'
-              })
-            })
-        } else {
-          tmp = {
-            'category': this.position.category,
-            'position': this.position.position,
-            'time': time,
-            'experience': this.position.experience,
-            'education': this.position.education,
-            'numbers': this.position.numbers,
-            'detail': this.position.detail,
-            'requirement': this.position.requirement,
-            'welfare': this.position.welfare,
-            'location': this.position.location,
-            'status': this.position.status
-          }
-          createEmployment(tmp).then(response => {
-            console.log(response)
-            if (response.data !== '0') {
-              Notification({
-                title: '成功',
-                message: '创建成功',
-                type: 'success'
-              })
-              this.$router.push('/employment/allEmployInfo')
-            } else {
-              Notification.error({
-                title: '错误',
-                message: '创建失败'
-              })
-            }
-          })
-            .catch(function(error) {
-              console.log(error)
-              Notification.error({
-                title: '错误',
-                message: '创建失败'
-              })
-            })
+        tmp = {
+          'category': this.position.category,
+          'position': this.position.position,
+          'time': time,
+          'experience': this.position.experience,
+          'education': this.position.education,
+          'numbers': this.position.numbers,
+          'detail': this.position.detail,
+          'requirement': this.position.requirement,
+          'welfare': this.position.welfare,
+          'location': this.position.location,
+          'status': this.position.status
         }
+        createEmployment(tmp).then(response => {
+          console.log(response)
+          if (response.data !== 0) {
+            Notification({
+              title: '成功',
+              message: '创建成功',
+              type: 'success'
+            })
+            this.$router.push('/employment/allEmployInfo')
+          } else {
+            Notification.error({
+              title: '错误',
+              message: '创建失败'
+            })
+          }
+        })
+          .catch(function(error) {
+            console.log(error)
+            Notification.error({
+              title: '错误',
+              message: '创建失败'
+            })
+          })
       }
     }
   }

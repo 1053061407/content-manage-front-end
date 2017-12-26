@@ -1,7 +1,7 @@
 <template>
 	<div class="upload-container">
-		<el-upload class="image-uploader" :data="dataObj" drag :multiple="false" :show-file-list="true" action="http://api.hello.com:5000/post_img"
-		  :on-success="handleImageScucess">
+		<el-upload class="image-uploader" :data="dataObj" drag :multiple="false" :show-file-list="true" action="http://120.78.220.115:5000/post_img"
+		  :on-success="handleImageScucess" with-credentials=true>
 			<i class="el-icon-upload"></i>
 			<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 		</el-upload>
@@ -46,8 +46,8 @@ export default {
     },
     handleImageScucess(response, file) {
       // 保存图片路径
-      this.emitInput('http://10.139.9.200:5000' + response.files.path)
-      console.log('http://10.139.9.200:5000' + response.files.path)
+      this.emitInput('http://120.78.220.115:5000' + response.files.path)
+      console.log('http://192.168.1.107:5000' + response.files.path)
     }
   }
 }

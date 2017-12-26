@@ -6,7 +6,7 @@ import store from '../store'
 // 创建axios实例
 const service = axios.create({
   withCredentials: true,
-  baseURL: 'http://api.hello.com:5000', // api的base_url
+  baseURL: 'http://120.78.220.115:5000', // api的base_url
   timeout: 15000 // 请求超时时间
 })
 
