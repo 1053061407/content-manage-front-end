@@ -12,15 +12,12 @@
     # 本地开发 开启服务
     npm run dev
 ```
-浏览器访问 http://localhost:9527
+浏览器访问 http://120.79.89.80/
 
 ## 发布
 ```bash
-    # 发布测试环境 带webpack ananalyzer
-    npm run build:sit-preview
-
-    # 构建生成环境
-    npm run build:prod
+    # 打包
+    npm run build
 ```
 
 ## 目录结构
