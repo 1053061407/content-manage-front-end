@@ -5,13 +5,14 @@
     <el-dialog :visible.sync="dialogVisible">
       <el-upload
         class="editor-slide-upload"
-        action="http://10.139.9.200:5000/post_img"
+        action="http://120.78.220.115:5000/post_img"
         :multiple="true"
         :file-list="fileList"
         :show-file-list="true"
         list-type="picture-card"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
+        with-credentials = true
         :before-upload="beforeUpload">
         <el-button size="small" type="primary">点击上传</el-button>
       </el-upload>
@@ -59,7 +60,7 @@
         const objKeyArr = Object.keys(this.listObj)
         for (let i = 0, len = objKeyArr.length; i < len; i++) {
           if (this.listObj[objKeyArr[i]].uid === uid) {
-            this.listObj[objKeyArr[i]].url = 'http://10.139.9.200:5000' + response.files.path
+            this.listObj[objKeyArr[i]].url = 'http://120.78.220.115:5000' + response.files.path
             console.log(response.files.path)
             this.listObj[objKeyArr[i]].hasSuccess = true
             return
