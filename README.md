@@ -6,8 +6,6 @@
 ```bash
     # 安装依赖
     npm install
-    //or # 建议不要用cnpm  安装有各种诡异的bug 可以通过如下操作解决npm速度慢的问题
-    npm install --registry=https://registry.npm.taobao.org
 
     # 本地开发 开启服务
     npm run dev
@@ -28,9 +26,6 @@
 │   ├── api                    // 所有请求
 │   ├── assets                 // 主题 字体等静态资源
 │   ├── components             // 全局公用组件
-│   ├── directive              // 全局指令
-│   ├── filtres                // 全局filter
-│   ├── mock                   // mock数据
 │   ├── router                 // 路由
 │   ├── store                  // 全局store管理
 │   ├── styles                 // 全局样式
