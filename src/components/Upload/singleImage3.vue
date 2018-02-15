@@ -47,7 +47,6 @@ export default {
     handleImageScucess(response, file) {
       // 保存图片路径
       this.emitInput('http://120.78.220.115:5000' + response.files.path)
-      console.log('http://192.168.1.107:5000' + response.files.path)
     }
   }
 }

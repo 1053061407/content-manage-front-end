@@ -102,7 +102,7 @@
         }
         postArticle(tmp).then(response => {
           console.log(response)
-          if(response.data == 1) {
+          if(response.data !== 0) {
             Notification({
               title: '成功',
               message: '创建成功',
@@ -135,7 +135,7 @@
         }
         updateArticle(tmp).then(response => {
           console.log(response)
-          if(response.data == 1) {
+          if(response.data !== 0) {
             Notification({
               title: '成功',
               message: '保存成功',
