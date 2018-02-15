@@ -88,6 +88,7 @@
       ])
     },
     methods: {
+      // 新建文章
       newArtilce() {
         var time = Math.round(this.ruleForm.time) / 1000
         var tmp = {
@@ -101,14 +102,16 @@
         }
         postArticle(tmp).then(response => {
           console.log(response)
-          Notification({
-            title: '成功',
-            message: '创建成功',
-            type: 'success'
-          })
-          if (this.ruleForm.category === 'company') {
-            this.$router.push('/article/companyInfo')
-          } else this.$router.push('/article/hotSpot')
+          if(response.data == 1) {
+            Notification({
+              title: '成功',
+              message: '创建成功',
+              type: 'success'
+            })
+            if (this.ruleForm.category === 'company') {
+              this.$router.push('/article/companyInfo')
+            } else this.$router.push('/article/hotSpot')
+          }
         })
           .catch(function(error) {
             console.log(error)
@@ -132,11 +135,16 @@
         }
         updateArticle(tmp).then(response => {
           console.log(response)
-          Notification({
-            title: '成功',
-            message: '保存成功',
-            type: 'success'
-          })
+          if(response.data == 1) {
+            Notification({
+              title: '成功',
+              message: '保存成功',
+              type: 'success'
+            })
+            if (this.ruleForm.category === 'company') {
+              this.$router.push('/article/companyInfo')
+            } else this.$router.push('/article/hotSpot')
+          }
         })
           .catch(function(error) {
             console.log(error)
