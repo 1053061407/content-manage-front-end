@@ -1,3 +1,4 @@
+import { clearobj } from '@/utils/clearObj'
 const carousel = {
   state: {
     carousel: {
@@ -24,7 +25,7 @@ const carousel = {
       btnUrl: '',
       direction1: '',
       direction2: '',
-      backgroundImage: '',
+      background: '',
       image_url1: '',
       image_url2: '',
       url: ''
@@ -32,9 +33,11 @@ const carousel = {
   },
 
   mutations: {
+    delCarousel(state) {
+      clearobj(state.carousel)
+    },
     setCarousel(state, carousel) {
       state.carousel = carousel
-      console.log(carousel)
       console.log(state.carousel)
     }
   }

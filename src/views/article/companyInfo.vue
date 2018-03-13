@@ -1,22 +1,5 @@
 <template>
   <div class="app-container calendar-list-container">
-    <div class="filter-container">
-      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="标题" v-model="listQuery.title">
-      </el-input>
-
-      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.type" placeholder="类型">
-        <el-option v-for="item in  calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key">
-        </el-option>
-      </el-select>
-
-      <el-select @change='handleFilter' style="width: 120px" class="filter-item" v-model="listQuery.sort" placeholder="排序">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key">
-        </el-option>
-      </el-select>
-
-      <el-button class="filter-item" type="primary" icon="document" @click="handleDownload">导出</el-button>
-      <el-checkbox class="filter-item" @change='tableKey=tableKey+1' v-model="showAuditor">显示审核人</el-checkbox>
-    </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row style="width: 100%">
 
@@ -29,7 +12,7 @@
       <el-table-column width="180px" align="center" label="时间">
         <template slot-scope="scope">
           <!--<span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>-->
-          <span>{{scope.row.time | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.time}}</span>
         </template>
       </el-table-column>
 
@@ -109,7 +92,6 @@
 
 <script>
   import { fetchList, fetchContent, cancelTop, setTop, setPublish, setDraft, setDelete } from '@/api/article'
-  import { parseTime } from '@/utils'
   import { Notification } from 'element-ui'
 
   const calendarTypeOptions = [
@@ -158,19 +140,6 @@
         pvData: [],
         showAuditor: false,
         tableKey: 0
-      }
-    },
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
-      },
-      typeFilter(type) {
-        return calendarTypeKeyValue[type]
       }
     },
     mounted() {
@@ -347,24 +316,6 @@
           status: 'published',
           type: ''
         }
-      },
-      handleDownload() {
-        require.ensure([], () => {
-          const { export_json_to_excel } = require('../../vendor/Export2Excel')
-          const tHeader = ['时间', '地区', '类型', '标题', '重要性']
-          const filterVal = ['timestamp', 'province', 'type', 'title', 'importance']
-          const data = this.formatJson(filterVal, this.list)
-          export_json_to_excel(tHeader, data, 'table数据')
-        })
-      },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => {
-          if (j === 'timestamp') {
-            return parseTime(v[j])
-          } else {
-            return v[j]
-          }
-        }))
       }
     }
   }

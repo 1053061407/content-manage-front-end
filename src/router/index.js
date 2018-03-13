@@ -25,7 +25,7 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    // redirect: '/dashboard',
     name: 'Dashboard',
     hidden: true,
     children: [{
@@ -40,7 +40,8 @@ export const constantRouterMap = [
     meta: { title: '轮播图', icon: 'carousel' },
     children: [
       { path: 'allCarousel', component: _import('carousel/allCarousel'), meta: { title: '所有轮播图' }},
-      { path: 'newCarousel', component: _import('carousel/newCarousel'), meta: { title: '新建轮播图' }}
+      { path: 'newCarousel', component: _import('carousel/newCarousel'), meta: { title: '新建轮播图' }},
+      { path: 'editCarousel', component: _import('carousel/editCarousel'), meta: { title: '编辑轮播图' }, hidden: true }
     ]
   },
   {

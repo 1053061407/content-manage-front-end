@@ -48,7 +48,7 @@
           <el-form-item>
             <p>设置背景图片</p>
             <div style="margin-bottom: 20px;">
-              <Upload v-model="carousel.backgroundImage"></Upload>
+              <Upload v-model="carousel.background"></Upload>
             </div>
           </el-form-item>
           <el-form-item>
@@ -82,7 +82,7 @@
           <el-form-item>
             <p>设置背景图片</p>
             <div style="margin-bottom: 20px;">
-              <Upload v-model="carousel.backgroundImage"></Upload>
+              <Upload v-model="carousel.background"></Upload>
             </div>
           </el-form-item>
           <el-form-item>
@@ -119,34 +119,7 @@
   export default {
     components: { Tinymce, Upload },
     destroyed() {
-      this.$store.commit('setCarousel', {
-        id: '',
-        title: '',
-        status: '',
-        content: '',
-        type: '1',
-        category: '',
-        button: {
-          text: '',
-          url: ''
-        },
-        img1: {
-          moveto: '',
-          url: ''
-        },
-        img2: {
-          moveto: '',
-          url: ''
-        },
-        btnContent: '',
-        btnUrl: '',
-        direction1: '',
-        direction2: '',
-        backgroundImage: '',
-        image_url1: '',
-        image_url2: '',
-        url: ''
-      })
+      this.$store.commit('delCarousel')
     },
     data() {
       return {
@@ -189,7 +162,7 @@
               text: this.carousel.button.text,
               url: this.carousel.button.url
             },
-            background: this.carousel.backgroundImage,
+            background: this.carousel.background,
             img1: {
               url: this.carousel.img1.url,
               moveto: this.carousel.img1.moveto
@@ -204,7 +177,7 @@
             type: '2',
             status: this.carousel.status,
             title: this.carousel.title,
-            background: this.carousel.backgroundImage,
+            background: this.carousel.background,
             img1: {
               url: this.carousel.img1.url,
               moveto: this.carousel.img1.moveto
@@ -245,7 +218,7 @@
               text: this.carousel.button.text,
               url: this.carousel.button.url
             },
-            background: this.carousel.backgroundImage,
+            background: this.carousel.background,
             img1: {
               url: this.carousel.img1.url,
               moveto: this.carousel.img1.moveto
@@ -260,7 +233,7 @@
             type: '2',
             status: this.carousel.status,
             title: this.carousel.title,
-            background: this.carousel.backgroundImage,
+            background: this.carousel.background,
             img1: {
               url: this.carousel.img1.url,
               moveto: this.carousel.img1.moveto
