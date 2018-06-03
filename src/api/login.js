@@ -12,7 +12,7 @@ export function loginByUsername(username, password) {
 }
 
 export function getSalt(userName) {
-  return request.get('/get_salt', {
+  return request.get('/login/get_salt', {
     params: {
       'userName': userName
     }

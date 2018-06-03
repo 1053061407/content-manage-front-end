@@ -8,8 +8,14 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // 权限
 import './assets/iconfont'
+import * as filters from './filters' // 全局filter
+
 
 Vue.use(ElementUI, { locale })
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 
 Vue.config.productionTip = false

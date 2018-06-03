@@ -2,16 +2,18 @@
   <div class="app-container calendar-list-container">
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row style="width: 100%">
 
-      <el-table-column align="center" label="序号" width="65">
+      <el-table-column align="center" label="序号" width="140">
         <template slot-scope="scope">
+          <el-checkbox label="" @change="push(scope.row.id)"></el-checkbox>
           <span>{{Number(scope.$index + 1)}}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="180px" align="center" label="时间">
         <template slot-scope="scope">
-          <!--<span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>-->
-          <span>{{scope.row.time}}</span>
+          <span>{{scope.row.time | parseTime }}</span>
+
+          <!--<span>{{scope.row.time}}</span>-->
         </template>
       </el-table-column>
 
@@ -114,6 +116,7 @@
         list: null,
         total: null,
         listLoading: false,
+        checkList: [],
         listQuery: {
           page: 0,
           category: 'industry'
@@ -159,6 +162,11 @@
       this.getList()
     },
     methods: {
+      push(id) {
+        console.log(id)
+        this.checkList.push(id)
+        console.log(this.checkList)
+      },
       getList() {
         this.listLoading = true
         // 用来取每一页的所有行业热点
@@ -280,6 +288,13 @@
               title: '成功',
               message: '删除成功',
               type: 'success'
+            })
+          }
+          else {
+            Notification({
+              title: '失败',
+              message: '删除失败',
+              type: 'error'
             })
           }
         })

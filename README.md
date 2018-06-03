@@ -1,4 +1,4 @@
-# vue-element-admin #
+# 一个网站内容管理系统 #
 
 
 
@@ -10,7 +10,6 @@
     # 本地开发 开启服务
     npm run dev
 ```
-浏览器访问 http://120.79.89.80/ （账户名:admin,密码:admin)
 
 ## 发布
 ```bash
@@ -43,3 +42,12 @@
 └── package.json               // package.json
 
 ```
+## 功能
+
+### 1.图片裁剪及预览功能
+![裁剪并预览](https://upload-images.jianshu.io/upload_images/3185709-2ac721e7b00bf781.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+### 2.新建(编辑)文章
+![image.png](https://upload-images.jianshu.io/upload_images/3185709-ca66caa9442a04a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### 3.管理文章
+![image.png](https://upload-images.jianshu.io/upload_images/3185709-9bd06a01c45d830d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
